@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterPosition : MonoBehaviour
 {
 
-    public RoomTrigger _room;
+    public GameObject _room;
 
     // Start is called before the first frame update
     void Start()

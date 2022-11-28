@@ -26,7 +26,7 @@ public class RoomTrigger : MonoBehaviour
         if (other.TryGetComponent<CharacterPosition>(out var character)) //if the object that enters the trigger is a character
         {
             _characters.Add(character.gameObject); //add the character to the list of characters in the room
-            character.gameObject.GetComponent<CharacterPosition>()._room = this; //set the character's room to this room
+            character.gameObject.GetComponent<CharacterPosition>()._room = gameObject; //set the character's room to this room
         }
     }
 
@@ -35,7 +35,7 @@ public class RoomTrigger : MonoBehaviour
         if (other.TryGetComponent<CharacterPosition>(out var character))
         {
             _characters.Remove(character.gameObject); //remove the character from the list of characters in the room
-            character.gameObject.GetComponent<CharacterPosition>()._room = null; //set the character's room to null
+            // character.gameObject.GetComponent<CharacterPosition>()._room = null; //set the character's room to null
             
         }
     }
