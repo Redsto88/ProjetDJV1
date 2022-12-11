@@ -16,9 +16,12 @@ public class CharacterBehaviour : MonoBehaviour
 
     private List<Vector3> _tasks = new List<Vector3>();
 
+    private Vector3 _starting_position;
+
     // Start is called before the first frame update
     void Awake()
     {
+        _starting_position = transform.position;
         _agent = GetComponent<NavMeshAgent>();
     }
 
@@ -38,14 +41,14 @@ public class CharacterBehaviour : MonoBehaviour
                 bool random = Random.Range(0, 2) == 0;
                 if (random)
                 {
-                    _agent.SetDestination(new Vector3(
+                    _agent.SetDestination(_starting_position + new Vector3(
                         Random.Range(-12f, 12f),
                         0f,
                         Random.Range(-12f, 12f)));
                 }
                 else
                 {
-                    _agent.SetDestination(new Vector3(
+                    _agent.SetDestination(_starting_position + new Vector3(
                         Random.Range(-12f, 12f) + 40,
                         0f,
                         Random.Range(-12f, 12f)));

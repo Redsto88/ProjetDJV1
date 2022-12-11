@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _startingPosition = transform.position;
         for (int i = 0; i < _startingNumberOfCrewmates; i++)
         {
             GameObject crewmate = Instantiate(
