@@ -24,6 +24,7 @@ public class Cameras : MonoBehaviour
             {
                 active = true;
                 state = true;
+                other.GetComponent<CharacterVision>()._camera = true;
                 cameras.SetActive(true);
                 player.SetCanMove(false);
                 
@@ -32,6 +33,7 @@ public class Cameras : MonoBehaviour
             {
                 active = true;
                 state = false;
+                other.GetComponent<CharacterVision>()._camera = false;
                 cameras.SetActive(false);
                 player.SetCanMove(true);
             }

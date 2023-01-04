@@ -25,6 +25,7 @@ public class RoomTrigger : MonoBehaviour
     {
         if (other.TryGetComponent<CharacterPosition>(out var character)) //if the object that enters the trigger is a character
         {
+            if (_characters.Contains(character.gameObject)) return; //if the character is already in the list of characters in the room, return
             _characters.Add(character.gameObject); //add the character to the list of characters in the room
             character.gameObject.GetComponent<CharacterPosition>()._room = gameObject; //set the character's room to this room
         }

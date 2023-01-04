@@ -44,7 +44,6 @@ public class PlayerController : MonoBehaviour
     public void SetCanMove(bool canmove)
     {
         this.canmove = canmove;
-        Debug.Log("fdijupfudoçifudifipfpiù");
     }
 
 }

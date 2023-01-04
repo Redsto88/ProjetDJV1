@@ -8,6 +8,8 @@ public class CharacterVision : MonoBehaviour
 
     public float _visionDistance = 6f;
 
+    public bool _camera = false;
+
     // Update is called once per frame
     void Update()
     {
@@ -46,7 +48,7 @@ public class CharacterVision : MonoBehaviour
             }
         }
         foreach (GameObject character in _notVisibleCharacterList){
-            character.GetComponent<visibilty>()._visible = false;
+            character.GetComponent<visibilty>()._visible = false || _camera;
         }
         
         
