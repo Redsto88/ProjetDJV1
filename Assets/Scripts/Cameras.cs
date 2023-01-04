@@ -13,23 +13,28 @@ public class Cameras : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if(!Input.GetKey(KeyCode.Space)){
-            active = false;
-        }
+
+        if (other.TryGetComponent(out PlayerController player)){
+            if(!Input.GetKey(KeyCode.Space)){
+                active = false;
+            }
 
 
-        if (Input.GetKey(KeyCode.Space) && !active && !state)
-        {
-            active = true;
-            state = true;
-            cameras.SetActive(true);
-            
-        }
-        else if (Input.GetKey(KeyCode.Space) && !active && state)
-        {
-            active = true;
-            state = false;
-            cameras.SetActive(false);
+            if (Input.GetKey(KeyCode.Space) && !active && !state)
+            {
+                active = true;
+                state = true;
+                cameras.SetActive(true);
+                player.SetCanMove(false);
+                
+            }
+            else if (Input.GetKey(KeyCode.Space) && !active && state)
+            {
+                active = true;
+                state = false;
+                cameras.SetActive(false);
+                player.SetCanMove(true);
+            }
         }
     }
 }

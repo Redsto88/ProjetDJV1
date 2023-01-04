@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 
 
+    private bool canmove = true;
     private CharacterController _controller;
     
     public float _speed = 2f;
@@ -23,7 +24,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log(canmove);
+        if(canmove){
         // Get the input from the player
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
@@ -36,9 +38,14 @@ public class PlayerController : MonoBehaviour
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(move), _rotationSpeed * Time.deltaTime);
         }
-
-
-
-
+        
+        }
     }
+
+    public void SetCanMove(bool canmove)
+    {
+        this.canmove = canmove;
+        Debug.Log("fdijupfudoçifudifipfpiù");
+    }
+
 }

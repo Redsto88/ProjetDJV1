@@ -242,6 +242,7 @@ GameObject:
   - component: {fileID: 1899242960396286490}
   - component: {fileID: 1899242960396286491}
   - component: {fileID: 1899242960396286564}
+  - component: {fileID: 4232115545963767039}
   m_Layer: 0
   m_Name: Imposter
   m_TagString: Untagged
@@ -322,7 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a07b638550e5e543af67e83ff940fde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isImpostor: 0
+  _isImpostor: 1
 --- !u!195 &1899242960396286564
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -345,3 +346,16 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4232115545963767039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899242960396286566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f6d93fc9a28aeb4b9406f1c72a46107, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _visible: 0
