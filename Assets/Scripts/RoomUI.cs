@@ -25,7 +25,6 @@ public class RoomUI : MonoBehaviour
         for(int i = 0; i < _images.Count; i++){
             if(i < nombre_a_afficher){
                 _images[i].gameObject.SetActive(true);
-                Debug.Log("oui : " + i);
             }else{
                 _images[i].gameObject.SetActive(false);
             }

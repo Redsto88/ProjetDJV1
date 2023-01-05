@@ -37,7 +37,29 @@ public class PlayerController : MonoBehaviour
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(move), _rotationSpeed * Time.deltaTime);
         }
+
+        //kill a crewmate
+        if (Input.GetKey(KeyCode.Space))
+        {
+            RaycastHit hit;
+            
+            if (Physics.Raycast(new Vector3(transform.position.x,1.8f,transform.position.z), transform.forward, out hit, 4f))
+            {
+                
+                if (hit.collider.gameObject.TryGetComponent<CrewmateBehaviour>(out CrewmateBehaviour crewmate))
+                {
+                    Debug.DrawRay(new Vector3(transform.position.x,1.8f,transform.position.z), transform.forward * 4f, Color.green, 1f);
+                    crewmate.Kill();
+                }
+                else{
+                    Debug.DrawRay(new Vector3(transform.position.x,1.8f,transform.position.z), transform.forward * 4f, Color.blue, 1f);
+                }
+            }
+            else{
+                Debug.DrawRay(new Vector3(transform.position.x,1.8f,transform.position.z), transform.forward * 4f, Color.red, 1f);
+            }
         
+        }
         }
     }
 

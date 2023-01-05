@@ -240,9 +240,9 @@ GameObject:
   - component: {fileID: 1899242960396286488}
   - component: {fileID: 1899242960396286489}
   - component: {fileID: 1899242960396286490}
-  - component: {fileID: 1899242960396286491}
   - component: {fileID: 1899242960396286564}
   - component: {fileID: 4232115545963767039}
+  - component: {fileID: -717287343296094443}
   m_Layer: 0
   m_Name: Imposter
   m_TagString: Untagged
@@ -311,19 +311,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _room: {fileID: 0}
---- !u!114 &1899242960396286491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899242960396286566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a07b638550e5e543af67e83ff940fde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isImpostor: 1
 --- !u!195 &1899242960396286564
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -359,3 +346,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _visible: 0
+--- !u!114 &-717287343296094443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899242960396286566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5564e0bd2a6b6343b120ab1ff0c54fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isImpostor: 1

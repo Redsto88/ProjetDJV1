@@ -17,6 +17,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject _crewmatePrefab;
     [SerializeField] private GameObject _imposterPrefab;
     [SerializeField] private GameObject _player;
+
+    public List<Vector3> _tasksPosition = new List<Vector3>();
     
     private List<GameObject> _crewmates = new List<GameObject>();
     private List<GameObject> _imposters = new List<GameObject>();
@@ -33,6 +35,7 @@ public class GameManager : Singleton<GameManager>
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(getTasks());
         _startingPosition = transform.position;
         for (int i = 0; i < _startingNumberOfCrewmates; i++)
         {
@@ -62,6 +65,9 @@ public class GameManager : Singleton<GameManager>
             _imposters.Add(imposter);
             _characterList.Add(imposter);
         }
+
+    
+
         
     }
 
@@ -71,6 +77,16 @@ public class GameManager : Singleton<GameManager>
         if (_numberOfCrewmates <= _numberOfCharacters - _numberOfCrewmates) //if the imposters outnumber the crewmates
         {
             Debug.Log("Imposters win!");
+        }
+    }
+
+    IEnumerator getTasks()
+    {
+        yield return new WaitForEndOfFrame();
+        task[] tasks = GetComponentsInChildren<task>();
+        foreach (task task in tasks)
+        {
+            _tasksPosition.Add(task._position);
         }
     }
 }

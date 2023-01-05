@@ -16,12 +16,10 @@ public class AdminTable : MonoBehaviour
     void Update(){
         if (state)
         {
-            Debug.Log("oui");
             roomsT =  rooms.GetComponentsInChildren<RoomTrigger>();
             foreach (RoomTrigger room in roomsT)
             {
                 room._roomUI.nombre_a_afficher = room._characters.Count;
-                Debug.Log(room._roomUI._roomID);
             }
         }
     }
