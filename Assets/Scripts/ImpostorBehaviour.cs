@@ -16,6 +16,12 @@ public class ImpostorBehaviour : CharacterBehaviour
 
     private Vector3 _starting_position;
 
+    public bool _isStopped = false;
+
+    public GameObject _player;
+
+    public GameObject _target;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -23,10 +29,19 @@ public class ImpostorBehaviour : CharacterBehaviour
         _agent = GetComponent<NavMeshAgent>();
     }
 
+
+    void Update()
+    {
+        if (GameManager.Instance.stop){
+            _agent.isStopped = true;
+        }
+    }
+
+
+
     // Update is called once per frame
     void OnEnable()
     {
-
 
         StartCoroutine(Coroutine());
         IEnumerator Coroutine()
@@ -36,22 +51,46 @@ public class ImpostorBehaviour : CharacterBehaviour
             _agent.speed = _speed;
             while(enabled)
             {
-                
+                Debug.Log("Start");
                 Vector3 _destination = GameManager.Instance._tasksPosition[Random.Range(0, GameManager.Instance._tasksPosition.Count)];
                 _agent.SetDestination(_destination);
-                do
-                {
-                    if(Vector3.Distance(transform.position,_destination)<=3){
-                        _agent.ResetPath();
+                do{
+                    if(Vector3.Distance(transform.position,_destination)<=1){
+                        _agent.isStopped = true;
+                    }
+                    if (_target == null){
+                        GameObject _roomObject = GetComponent<CharacterPosition>()._room;
+                        if(_roomObject != null){
+                            RoomTrigger _room = _roomObject.GetComponent<RoomTrigger>();
+                            if (_room._impostorNumber >= _room._characters.Count - _room._impostorNumber && Vector3.Distance(transform.position,_player.transform.position)>10 && _room._crewmates.Count>0){
+                                foreach (GameObject crew in _room._crewmates)
+                                {
+                                    if(crew != null && crew.TryGetComponent<CrewmateBehaviour>(out var crewmate)){;
+                                        if (!crewmate._isTargetted){
+                                            _target = crew;
+                                            crewmate._isTargetted = true;
+                                            _agent.SetDestination(crew.transform.position);
+                                            _destination = crew.transform.position;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                     yield return null;
                 }
-                while (_agent.hasPath);
-
-                yield return new WaitForSeconds(5);
+                while (enabled && !_agent.isStopped);
+                if (_target != null){
+                    CrewmateBehaviour crewmate = _target.GetComponent<CrewmateBehaviour>();
+                    crewmate.Kill();
+                    _target = null;
+                }
+                else{
+                    yield return new WaitForSeconds(5);
+                }
+                _agent.isStopped = false;
             }
-            
-            
         }
     }
 }

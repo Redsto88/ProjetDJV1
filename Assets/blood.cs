@@ -15,7 +15,6 @@ public class blood : MonoBehaviour
 
     IEnumerator spawnBlood()
     {
-            Debug.Log("blood spawned");
             GameObject _bloodSpawned = Instantiate(_blood, transform.position, Quaternion.identity);
             Destroy(_bloodSpawned,2);
             yield return null;

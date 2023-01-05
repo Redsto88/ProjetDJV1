@@ -12,6 +12,8 @@ public class CharacterVision : MonoBehaviour
 
     public float rayHeight = 1.8f;
 
+    public bool DebugMode = false;
+
     // Update is called once per frame
     void Update()
     {
@@ -28,25 +30,25 @@ public class CharacterVision : MonoBehaviour
                         {
                             _notVisibleCharacterList.Remove(v2.gameObject);
                             hit2.collider.gameObject.GetComponent<visibilty>()._visible = true;
-                            //Debug.DrawRay(hit.point + new Vector3(cos*0.47f,0,sin*0.47f), new Vector3(cos,0,sin)*(_visionDistance - hit.distance - hit2.distance), Color.green);
+                            if(DebugMode) Debug.DrawRay(hit.point + new Vector3(cos*0.47f,0,sin*0.47f), new Vector3(cos,0,sin)*(_visionDistance - hit.distance - hit2.distance), Color.green);
                         }
                         else{
-                            //Debug.DrawRay(hit.point + new Vector3(cos*0.47f,0,sin*0.47f), new Vector3(cos,0,sin)*(_visionDistance - hit.distance - hit2.distance), Color.magenta);
+                            if(DebugMode) Debug.DrawRay(hit.point + new Vector3(cos*0.47f,0,sin*0.47f), new Vector3(cos,0,sin)*(_visionDistance - hit.distance - hit2.distance), Color.magenta);
                         }
                     }
                     else{
-                        //Debug.DrawRay(hit.point + new Vector3(cos*0.47f,0,sin*0.47f), new Vector3(cos,0,sin)*(_visionDistance - hit.distance), Color.cyan);
+                        if(DebugMode) Debug.DrawRay(hit.point + new Vector3(cos*0.47f,0,sin*0.47f), new Vector3(cos,0,sin)*(_visionDistance - hit.distance), Color.cyan);
                     }
                     _notVisibleCharacterList.Remove(v.gameObject);
                     hit.collider.gameObject.GetComponent<visibilty>()._visible = true;
-                    //Debug.DrawRay(transform.position + new Vector3(cos*0.47f,rayHeight,sin*0.47f), new Vector3(cos,0,sin)*hit.distance, Color.yellow);
+                    if(DebugMode) Debug.DrawRay(transform.position + new Vector3(cos*0.47f,rayHeight,sin*0.47f), new Vector3(cos,0,sin)*hit.distance, Color.yellow);
                 }
                 else{
-                    //Debug.DrawRay(transform.position + new Vector3(cos*0.47f,rayHeight,sin*0.47f), new Vector3(cos,0,sin)*hit.distance, Color.red);
+                    if(DebugMode) Debug.DrawRay(transform.position + new Vector3(cos*0.47f,rayHeight,sin*0.47f), new Vector3(cos,0,sin)*hit.distance, Color.red);
                 }
             }
             else{
-                //Debug.DrawRay(transform.position + new Vector3(cos*0.47f,rayHeight,sin*0.47f), new Vector3(cos,0,sin)*_visionDistance, Color.blue);
+                if(DebugMode) Debug.DrawRay(transform.position + new Vector3(cos*0.47f,rayHeight,sin*0.47f), new Vector3(cos,0,sin)*_visionDistance, Color.blue);
             }
         }
         foreach (GameObject character in _notVisibleCharacterList){

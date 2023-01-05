@@ -18,12 +18,24 @@ public class CrewmateBehaviour : CharacterBehaviour
 
     [SerializeField] private GameObject Body;
 
+    public bool _isTargetted = false;
+
+    private bool _isStopped = false;
+
     // Start is called before the first frame update
     void Awake()
     {
         _starting_position = transform.position;
         _agent = GetComponent<NavMeshAgent>();
     }
+
+    void Update()
+    {
+        if (_isTargetted) {
+            _agent.isStopped = true;
+        }
+    }
+    
 
     // Update is called once per frame
     void OnEnable()
@@ -42,18 +54,18 @@ public class CrewmateBehaviour : CharacterBehaviour
                 _agent.SetDestination(_destination);
                 do
                 {
-                    if(Vector3.Distance(transform.position,_destination)<=3){
+                    if(Vector3.Distance(transform.position,_destination)<=2){
+                        _isStopped = true;
                         _agent.ResetPath();
+                        _agent.SetDestination(transform.position);
                     }
                     yield return null;
                 }
-                while (_agent.hasPath && enabled);
-
-
+                while (enabled && !_isStopped);
+                _isStopped = true;
                 yield return new WaitForSeconds(5);
+                _isStopped = false;
             }
-            
-            
         }
     }
 
@@ -62,9 +74,9 @@ public class CrewmateBehaviour : CharacterBehaviour
         bodySpawn.GetComponentInChildren<Renderer>().material=GetComponentInChildren<Renderer>().material;
         GameManager.Instance._characterList.Add(bodySpawn);
         GameManager.Instance._characterList.Remove(gameObject);
-
+        GameManager.Instance._numberOfCrewmates--;
+        GameManager.Instance._numberOfCharacters--;
        
-        Debug.Log("Killed");
          Destroy(gameObject);
     }
 }

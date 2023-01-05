@@ -11,6 +11,8 @@ public class GameManager : Singleton<GameManager>
     public int _numberOfRooms = 10;
     public int _startingNumberOfCharacters = 2; //4 crewmates + 1 impostor + 1 player
 
+    public bool stop = false;
+
     public int _numberOfCharacters = 2;
     public int _startingNumberOfCrewmates = 1;
     public int _numberOfCrewmates = 1; 
@@ -62,6 +64,7 @@ public class GameManager : Singleton<GameManager>
             imposter.GetComponentInChildren<Renderer>().material = _characterMaterials[i+_startingNumberOfCrewmates];
             imposter.name = "Imposter " + i; 
             imposter.transform.parent = _player.transform.parent;
+            imposter.GetComponent<ImpostorBehaviour>()._player = _player;
             _imposters.Add(imposter);
             _characterList.Add(imposter);
         }
@@ -74,7 +77,7 @@ public class GameManager : Singleton<GameManager>
     // Update is called once per frame
     void Update()
     {
-        if (_numberOfCrewmates <= _numberOfCharacters - _numberOfCrewmates) //if the imposters outnumber the crewmates
+        if (_numberOfCrewmates + 1 <= _numberOfCharacters - _numberOfCrewmates) //if the imposters outnumber the crewmates
         {
             Debug.Log("Imposters win!");
         }
