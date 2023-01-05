@@ -49,6 +49,7 @@ public class GameManager : Singleton<GameManager>
             crewmate.GetComponentInChildren<Renderer>().material = _characterMaterials[i];
             crewmate.name = "Crewmate " + i;
             crewmate.transform.parent = _player.transform.parent;
+            crewmate.gameObject.GetComponent<CharacterBehaviour>()._name = _characterMaterials[i].name;
             _crewmates.Add(crewmate);
             _characterList.Add(crewmate);
         }
@@ -65,8 +66,23 @@ public class GameManager : Singleton<GameManager>
             imposter.name = "Imposter " + i; 
             imposter.transform.parent = _player.transform.parent;
             imposter.GetComponent<ImpostorBehaviour>()._player = _player;
+            imposter.gameObject.GetComponent<CharacterBehaviour>()._name = _characterMaterials[i+_startingNumberOfCrewmates].name;
             _imposters.Add(imposter);
             _characterList.Add(imposter);
+        }
+
+        _characterList.Add(_player);
+
+        foreach (GameObject character in _characterList)
+        {
+            if (character.TryGetComponent<CharacterBehaviour>(out CharacterBehaviour characterBehaviour))
+            {
+                Debug.Log(characterBehaviour._name);
+            }
+            else{
+                Debug.Log("Player");
+            }
+            
         }
 
     

@@ -10334,6 +10334,7 @@ MonoBehaviour:
   active: 0
   state: 0
   table: {fileID: 0}
+  rooms: {fileID: 0}
 --- !u!1 &8012733071256662850
 GameObject:
   m_ObjectHideFlags: 0

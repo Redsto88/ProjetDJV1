@@ -72,6 +72,7 @@ public class CrewmateBehaviour : CharacterBehaviour
     public void Kill(){
         GameObject bodySpawn = Instantiate(Body, transform.position, Quaternion.Euler(-90,0,0));
         bodySpawn.GetComponentInChildren<Renderer>().material=GetComponentInChildren<Renderer>().material;
+        bodySpawn.GetComponent<BodyBehaviour>()._name = _name;
         GameManager.Instance._characterList.Add(bodySpawn);
         GameManager.Instance._characterList.Remove(gameObject);
         GameManager.Instance._numberOfCrewmates--;

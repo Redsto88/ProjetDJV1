@@ -5,4 +5,6 @@ using UnityEngine;
 public class CharacterBehaviour : MonoBehaviour
 {
     public bool _isImpostor = false;
+
+    public string _name = "Player";
 }

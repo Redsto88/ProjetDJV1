@@ -22,6 +22,10 @@ public class ImpostorBehaviour : CharacterBehaviour
 
     public GameObject _target;
 
+    public float _coolDowntime = 45;
+
+    public float _coolDown = 20; //start with 20 seconds cooldown
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -34,6 +38,12 @@ public class ImpostorBehaviour : CharacterBehaviour
     {
         if (GameManager.Instance.stop){
             _agent.isStopped = true;
+        }
+        if (_coolDown > 0){
+            _coolDown -= Time.deltaTime;
+        }
+        else{
+            _coolDown = 0;
         }
     }
 
@@ -51,14 +61,13 @@ public class ImpostorBehaviour : CharacterBehaviour
             _agent.speed = _speed;
             while(enabled)
             {
-                Debug.Log("Start");
                 Vector3 _destination = GameManager.Instance._tasksPosition[Random.Range(0, GameManager.Instance._tasksPosition.Count)];
                 _agent.SetDestination(_destination);
                 do{
                     if(Vector3.Distance(transform.position,_destination)<=1){
                         _agent.isStopped = true;
                     }
-                    if (_target == null){
+                    if (_target == null && _coolDown == 0){
                         GameObject _roomObject = GetComponent<CharacterPosition>()._room;
                         if(_roomObject != null){
                             RoomTrigger _room = _roomObject.GetComponent<RoomTrigger>();
@@ -84,6 +93,7 @@ public class ImpostorBehaviour : CharacterBehaviour
                 if (_target != null){
                     CrewmateBehaviour crewmate = _target.GetComponent<CrewmateBehaviour>();
                     crewmate.Kill();
+                    _coolDown = _coolDowntime;
                     _target = null;
                 }
                 else{
