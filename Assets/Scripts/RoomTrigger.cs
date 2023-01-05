@@ -8,6 +8,8 @@ public class RoomTrigger : MonoBehaviour
 
     public List<GameObject> _characters = new List<GameObject>();
 
+    public RoomUI _roomUI;
+
 
     // Start is called before the first frame update
     void Start()
