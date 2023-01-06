@@ -5,10 +5,14 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
 
-    [SerializeField] private Transform target;
+    public Transform target;
     [SerializeField] private Vector3 offset;
 
     private Vector3 _currentVelocity;
+
+    public bool _isPlayer = true;
+
+    [SerializeField] private Transform _deathPos;
 
 
     // Start is called before the first frame update
@@ -22,12 +26,18 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        transform.position = Vector3.SmoothDamp(
-            transform.position,
-            target.position + offset,
-            ref _currentVelocity,
-            0.1f);
+        if (_isPlayer){
+            transform.position = Vector3.SmoothDamp(
+                transform.position,
+                target.position + offset,
+                ref _currentVelocity,
+                0.1f);
+        }
+        else{
+            transform.position = _deathPos.position;
+        }
+
+
 
         
     }

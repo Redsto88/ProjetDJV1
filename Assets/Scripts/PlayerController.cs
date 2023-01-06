@@ -6,11 +6,15 @@ public class PlayerController : MonoBehaviour
 {
 
 
-    private bool canmove = true;
+    public bool canmove = true;
     private CharacterController _controller;
     
     public float _speed = 2f;
     public float _rotationSpeed = 2f;
+    
+    public GameObject _body;
+
+    public Vector3 _startPos;
 
 
     // Start is called before the first frame update
@@ -24,6 +28,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance._meeting_stop){
+            canmove = false;
+        }
         if(canmove){
         // Get the input from the player
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
@@ -66,6 +73,16 @@ public class PlayerController : MonoBehaviour
     public void SetCanMove(bool canmove)
     {
         this.canmove = canmove;
+    }
+
+    public void returnToStart(){
+        transform.position = _startPos;
+    }
+
+    public GameObject Kill(){
+        GameObject body = Instantiate(_body, transform.position, Quaternion.Euler(-90,0,0));
+        body.GetComponentInChildren<Renderer>().material=GetComponentInChildren<Renderer>().material;
+        return body;
     }
 
 }

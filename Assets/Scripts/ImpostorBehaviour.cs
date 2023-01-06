@@ -22,9 +22,12 @@ public class ImpostorBehaviour : CharacterBehaviour
 
     public GameObject _target;
 
+    public GameObject _body;
+
     public float _coolDowntime = 45;
 
     public float _coolDown = 20; //start with 20 seconds cooldown
+    
 
     // Start is called before the first frame update
     void Awake()
@@ -36,8 +39,12 @@ public class ImpostorBehaviour : CharacterBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.stop){
-            _agent.isStopped = true;
+        if (GameManager.Instance._meeting_stop){
+            // _agent.speed = 2* _speed;
+            _agent.SetDestination(_starting_position);
+        }
+        else{
+            _agent.speed = _speed;
         }
         if (_coolDown > 0){
             _coolDown -= Time.deltaTime;
@@ -64,10 +71,11 @@ public class ImpostorBehaviour : CharacterBehaviour
                 Vector3 _destination = GameManager.Instance._tasksPosition[Random.Range(0, GameManager.Instance._tasksPosition.Count)];
                 _agent.SetDestination(_destination);
                 do{
+                    _destination = _agent.destination;
                     if(Vector3.Distance(transform.position,_destination)<=1){
                         _agent.isStopped = true;
                     }
-                    if (_target == null && _coolDown == 0){
+                    if (_target == null && _coolDown == 0 && !GameManager.Instance._meeting_stop){
                         GameObject _roomObject = GetComponent<CharacterPosition>()._room;
                         if(_roomObject != null){
                             RoomTrigger _room = _roomObject.GetComponent<RoomTrigger>();
@@ -90,6 +98,7 @@ public class ImpostorBehaviour : CharacterBehaviour
                     yield return null;
                 }
                 while (enabled && !_agent.isStopped);
+                _agent.isStopped = false;
                 if (_target != null){
                     CrewmateBehaviour crewmate = _target.GetComponent<CrewmateBehaviour>();
                     crewmate.Kill();
@@ -99,8 +108,22 @@ public class ImpostorBehaviour : CharacterBehaviour
                 else{
                     yield return new WaitForSeconds(5);
                 }
-                _agent.isStopped = false;
+                
             }
         }
+    }
+
+    new public GameObject Kill(){
+        Debug.Log("Killed");
+        GameObject bodySpawn = Instantiate(_body, transform.position, Quaternion.Euler(-90,0,0));
+        bodySpawn.GetComponentInChildren<Renderer>().material=GetComponentInChildren<Renderer>().material;
+        bodySpawn.GetComponent<BodyBehaviour>()._name = _name;
+        GameManager.Instance._characterList.Add(bodySpawn);
+        GameManager.Instance._characterList.Remove(gameObject);
+        GameManager.Instance._imposters.Remove(gameObject);
+        GameManager.Instance._numberOfCrewmates--;
+        GameManager.Instance._numberOfCharacters--;
+        Destroy(gameObject);
+        return bodySpawn;
     }
 }

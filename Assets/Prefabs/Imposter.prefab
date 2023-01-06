@@ -330,8 +330,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isImpostor: 1
+  _name: Player
   _isStopped: 0
   _player: {fileID: 0}
   _target: {fileID: 0}
+  _body: {fileID: 1899242960396286566, guid: 5aa233e9925fd344584f312fb0c2fdda, type: 3}
   _coolDowntime: 45
   _coolDown: 20

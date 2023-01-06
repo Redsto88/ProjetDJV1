@@ -20,7 +20,13 @@ public class CrewmateBehaviour : CharacterBehaviour
 
     public bool _isTargetted = false;
 
-    private bool _isStopped = false;
+    public bool _isStopped = false;
+
+    public bool aisStopped = false;
+
+    public Vector3 dest;
+
+    public float dist;
 
     // Start is called before the first frame update
     void Awake()
@@ -31,6 +37,11 @@ public class CrewmateBehaviour : CharacterBehaviour
 
     void Update()
     {
+        dest = _agent.destination;
+        aisStopped = _agent.isStopped;
+        if (GameManager.Instance._meeting_stop){
+            _agent.SetDestination(_starting_position);
+        }
         if (_isTargetted) {
             _agent.isStopped = true;
         }
@@ -54,10 +65,10 @@ public class CrewmateBehaviour : CharacterBehaviour
                 _agent.SetDestination(_destination);
                 do
                 {
-                    if(Vector3.Distance(transform.position,_destination)<=2){
+                    _destination = _agent.destination;
+                    dist = Vector3.Distance(transform.position,_destination);
+                    if(Vector3.Distance(transform.position,_destination)<=1){
                         _isStopped = true;
-                        _agent.ResetPath();
-                        _agent.SetDestination(transform.position);
                     }
                     yield return null;
                 }
@@ -69,7 +80,8 @@ public class CrewmateBehaviour : CharacterBehaviour
         }
     }
 
-    public void Kill(){
+    new public GameObject Kill(){
+        Debug.Log("Killed");
         GameObject bodySpawn = Instantiate(Body, transform.position, Quaternion.Euler(-90,0,0));
         bodySpawn.GetComponentInChildren<Renderer>().material=GetComponentInChildren<Renderer>().material;
         bodySpawn.GetComponent<BodyBehaviour>()._name = _name;
@@ -77,7 +89,7 @@ public class CrewmateBehaviour : CharacterBehaviour
         GameManager.Instance._characterList.Remove(gameObject);
         GameManager.Instance._numberOfCrewmates--;
         GameManager.Instance._numberOfCharacters--;
-       
-         Destroy(gameObject);
+        Destroy(gameObject);
+        return bodySpawn;
     }
 }

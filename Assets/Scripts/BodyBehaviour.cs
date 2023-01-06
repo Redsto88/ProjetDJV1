@@ -13,6 +13,21 @@ public class BodyBehaviour : MonoBehaviour
 
         if(Input.GetKey(KeyCode.Space) && !_isActivated){
             _isActivated = true;
+            GameManager.Instance.meeting();
+        }
+    }
+
+    public void Animation(){
+        StartCoroutine(Coroutine());
+        IEnumerator Coroutine()
+        {
+            float t = 0;
+            while(t<5){
+                t+=Time.deltaTime;
+                transform.position = new Vector3(transform.position.x+0.04f, transform.position.y, transform.position.z);
+                transform.rotation *= Quaternion.Euler(0, 0, 1f);
+                yield return null;
+            }
         }
     }
 }

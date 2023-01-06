@@ -5,7 +5,7 @@ using UnityEngine;
 public class MeetingButtonScript : MonoBehaviour
 {
     public List<ButtonScript> _buttons = new List<ButtonScript>();
-    void Start()
+    void OnEnable()
     {
         ButtonScript[] buttons = GetComponentsInChildren<ButtonScript>();
         foreach (ButtonScript button in buttons)
@@ -17,7 +17,7 @@ public class MeetingButtonScript : MonoBehaviour
 
     void Update()
     {
-     Appear();   
+        
     }
 
     public void Reset(){
@@ -33,6 +33,7 @@ public class MeetingButtonScript : MonoBehaviour
             button.Unactive();
         }
         Debug.Log("id : " + _buttons[id]._text.text + " is dead");
+        GameManager.Instance.kill(id);
     }
 
     public void Appear(){
