@@ -80,6 +80,7 @@ public class GameManager : Singleton<GameManager>
                         good = true;
                     }
                 }
+            }
 
         }
 
