@@ -15,9 +15,9 @@ public class MeetingButtonScript : MonoBehaviour
         }
     }
 
-    void Update()
+    public void Skip()
     {
-        
+        Valide(-1);
     }
 
     public void Reset(){
@@ -32,8 +32,13 @@ public class MeetingButtonScript : MonoBehaviour
         {
             button.Unactive();
         }
-        Debug.Log("id : " + _buttons[id]._text.text + " is dead");
-        GameManager.Instance.kill(id, _buttons[id]._text.text);
+        StartCoroutine(End(id));
+
+        IEnumerator End(int id){
+            yield return new WaitForSeconds(1.5f);
+            if (id != -1) GameManager.Instance.kill(id, _buttons[id]._text.text);
+            else GameManager.Instance.kill(-1,"Personne");
+        }
     }
 
     public void Appear(){

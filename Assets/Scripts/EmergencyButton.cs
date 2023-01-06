@@ -9,7 +9,7 @@ public class EmergencyButton : MonoBehaviour
     private bool _isActivated = false;
 
     public float cooldownTime = 60f;
-    [SerializeField] private float cooldownTimer = 0f;
+    public float cooldownTimer = 0f;
 
     void Update(){
         if(_isActivated && !GameManager.Instance._meeting_stop){

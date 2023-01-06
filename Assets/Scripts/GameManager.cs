@@ -13,7 +13,6 @@ public class GameManager : Singleton<GameManager>
     public int _startingNumberOfCharacters = 2; //4 crewmates + 1 impostor + 1 player
 
     public bool _meeting_stop = false;
-    public bool toremove = false;
 
     public int _numberOfCharacters = 2;
     public int _startingNumberOfCrewmates = 1;
@@ -46,6 +45,41 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private Transform _ejectPos;
 
     [SerializeField] private GameObject _ejectText;
+
+
+
+    public bool _win = false;
+    private bool _isEnded = false;
+
+    public GameObject _winLoseScreen;
+
+    public void Restart(){
+        List<GameObject> chars = new List<GameObject>(_characterList); 
+        foreach (GameObject character in chars){
+            if (character.TryGetComponent<CrewmateBehaviour>(out var a)){
+                a.Kill();
+            }
+            else if (character.TryGetComponent<ImpostorBehaviour>(out var b)){
+                b.Kill();
+            }
+        }
+        resetRoomsPresence();
+        foreach (GameObject obj in _characterList){
+            if(!obj.TryGetComponent<CharacterController>(out var a)){
+                Destroy(obj);
+            } 
+        }
+        _numberOfCharacters = _startingNumberOfCharacters;
+        _numberOfCrewmates = _startingNumberOfCrewmates;
+        _win = false;
+        _isEnded = false;
+        _winLoseScreen.SetActive(false);
+        _meeting_stop = false;
+        _characterList.Clear();
+        _crewmates.Clear();
+        _imposters.Clear();
+        Start();
+    }
 
 
     void Start()
@@ -83,8 +117,6 @@ public class GameManager : Singleton<GameManager>
             }
 
         }
-
-
         StartCoroutine(getTasks());
     }
 
@@ -152,13 +184,17 @@ public class GameManager : Singleton<GameManager>
     // Update is called once per frame
     void Update()
     {
-        if (_numberOfCrewmates + 1 <= _numberOfCharacters - _numberOfCrewmates) //if the imposters outnumber the crewmates
+        if (_numberOfCrewmates + 1 <= _numberOfCharacters - _numberOfCrewmates && !_isEnded) //if the imposters outnumber the crewmates
         {
-            Debug.Log("Imposters win!");
+            _isEnded = true;
+            _win = false;
+            End();
         }
-        if(_meeting_stop && !toremove){
-            toremove = true;
-            meeting();
+        else if(_numberOfCharacters - _numberOfCrewmates <= 0 && !_isEnded)
+        {
+            _win = true;
+            _isEnded = true;
+            End();
         }
     }
 
@@ -189,38 +225,54 @@ public class GameManager : Singleton<GameManager>
 
 
     public void kill(int i,string name){
-        GameObject character = _characterList[i];
         GameObject body = null;
         int who = -1;
-        bool lost = false;
-        if (character.TryGetComponent<CrewmateBehaviour>(out CrewmateBehaviour crewmate))
-        {
-            body = crewmate.Kill();
-            who = 0;
-        }
-        else if (character.TryGetComponent<ImpostorBehaviour>(out ImpostorBehaviour imposter))
-        {
-            body = imposter.Kill();
-            who = 1;
-        }
-        else
-        {
-            body = _player.GetComponent<PlayerController>().Kill();
-            who = 2;
-            Debug.Log("Player killed");
-            lost = true;
+        if(i!=-1){
+        GameObject character = _characterList[i];
+            if (character.TryGetComponent<CrewmateBehaviour>(out CrewmateBehaviour crewmate))
+            {
+                body = crewmate.Kill();
+                who = 0;
+            }
+            else if (character.TryGetComponent<ImpostorBehaviour>(out ImpostorBehaviour imposter))
+            {
+                body = imposter.Kill();
+                who = 1;
+            }
+            else
+            {
+                body = _player.GetComponent<PlayerController>().Kill();
+                who = 2;
+                Debug.Log("Player killed");
+                StartCoroutine(suicide());
+
+                IEnumerator suicide(){
+                    yield return new WaitForSeconds(6);
+                    End();
+                }
+            }
         }
         StartCoroutine(Eject(body,who,name));
+    }
+
+    public void End(){
+        _meeting_stop = true;
+        _winLoseScreen.SetActive(true);
     }
 
 
     IEnumerator Eject(GameObject body,int who, string name)
     {
-        if(body.TryGetComponent<visibilty>(out visibilty v)){
-            v._isEjected = true;
+        if(body!=null){
+            if(body.TryGetComponent<visibilty>(out visibilty v)){
+                v._isEjected = true;
+            }
         }
         _ejectText.SetActive(true);
-        if (who == 0)
+        if(who == -1){
+            _ejectText.GetComponent<WasImpostor>()._textToPrint = "Personne n'a ete ejecte";
+        }
+        else if (who == 0)
         {
             _ejectText.GetComponent<WasImpostor>()._textToPrint = name + " n'etait pas imposteur";
         }
@@ -243,7 +295,6 @@ public class GameManager : Singleton<GameManager>
         yield return new WaitForSeconds(7f);
         _ejectText.SetActive(false);
         _meeting_stop = false;
-        toremove = false;
         _camera.GetComponent<CameraMovement>()._isPlayer = true;
         foreach(GameObject imposter in _imposters){
             ImpostorBehaviour imposterBehaviour = imposter.GetComponent<ImpostorBehaviour>();
