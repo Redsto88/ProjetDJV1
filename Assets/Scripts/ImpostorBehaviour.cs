@@ -52,6 +52,10 @@ public class ImpostorBehaviour : CharacterBehaviour
         else{
             _coolDown = 0;
         }
+        if(Vector3.Distance(transform.position,_player.transform.position)<10 && _target != null){
+            _target = null;
+            _agent.ResetPath();
+        }
     }
 
 
@@ -121,7 +125,6 @@ public class ImpostorBehaviour : CharacterBehaviour
         GameManager.Instance._characterList.Add(bodySpawn);
         GameManager.Instance._characterList.Remove(gameObject);
         GameManager.Instance._imposters.Remove(gameObject);
-        GameManager.Instance._numberOfCrewmates--;
         GameManager.Instance._numberOfCharacters--;
         Destroy(gameObject);
         return bodySpawn;

@@ -6,7 +6,7 @@ public class EmergencyButton : MonoBehaviour
 {
 
     [SerializeField] private GameObject _buttonOutline;
-    private bool _isActivated = false;
+    public bool _isActivated = false;
 
     public float cooldownTime = 60f;
     public float cooldownTimer = 0f;

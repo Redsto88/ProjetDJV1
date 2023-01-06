@@ -26,13 +26,13 @@ public class WinLoseScreen : MonoBehaviour
             while (back.color.a < 1)
             {
                 if(GameManager.Instance._win)
-                    Win.color = new Color(1,1,1,Win.color.a + 0.01f);
+                    Win.color = new Color(1,1,1,Win.color.a + 0.03f);
                 else
-                    Lose.color = new Color(1,1,1,Lose.color.a + 0.01f);
-                back.color = new Color(0,0,0,back.color.a + 0.01f);
-                Quit.color = new Color(1,1,1,Quit.color.a + 0.01f);
-                Restart.color = new Color(1,1,1,Restart.color.a + 0.01f);
-                yield return new WaitForSeconds(0.01f);
+                    Lose.color = new Color(1,1,1,Lose.color.a + 0.03f);
+                back.color = new Color(0,0,0,back.color.a + 0.03f);
+                Quit.color = new Color(1,1,1,Quit.color.a + 0.03f);
+                Restart.color = new Color(1,1,1,Restart.color.a + 0.03f);
+                yield return new WaitForSeconds(0.03f);
             }
 
         }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
+
 [SingletonOptions("GAME", isPrefab: true)]
 public class GameManager : Singleton<GameManager>
 {
@@ -46,6 +47,8 @@ public class GameManager : Singleton<GameManager>
 
     [SerializeField] private GameObject _ejectText;
 
+    [SerializeField] private GameObject _emergencyButton;
+
 
 
     public bool _win = false;
@@ -78,12 +81,22 @@ public class GameManager : Singleton<GameManager>
         _characterList.Clear();
         _crewmates.Clear();
         _imposters.Clear();
+        _emergencyButton.GetComponent<EmergencyButton>().cooldownTimer = 0f;
+        _emergencyButton.GetComponent<EmergencyButton>()._isActivated = false;
+        _player.GetComponent<PlayerController>().SetCanMove(true);
         Start();
     }
 
 
     void Start()
     {
+        //shuffle material list
+        for (int i = 0; i < _characterMaterials.Count; i++){
+            Material temp = _characterMaterials[i];
+            int randomIndex = Random.Range(i, _characterMaterials.Count);
+            _characterMaterials[i] = _characterMaterials[randomIndex];
+            _characterMaterials[randomIndex] = temp;
+        }
         _startingPosition = transform.position;
         int crewmateToSpawn = _startingNumberOfCrewmates;
         int impostorToSpawn = _startingNumberOfCharacters - _startingNumberOfCrewmates;
@@ -190,7 +203,7 @@ public class GameManager : Singleton<GameManager>
             _win = false;
             End();
         }
-        else if(_numberOfCharacters - _numberOfCrewmates <= 0 && !_isEnded)
+        else if(_numberOfCharacters - _numberOfCrewmates <= 0 && !_isEnded && !_meeting_stop)
         {
             _win = true;
             _isEnded = true;
@@ -204,8 +217,8 @@ public class GameManager : Singleton<GameManager>
         foreach (task task in tasks)
         {
             _tasksPosition.Add(task._position);
-            yield return null;
         }
+        yield return new WaitForSeconds(1);
     }
 
     public void meeting(){

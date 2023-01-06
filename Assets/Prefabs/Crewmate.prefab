@@ -295,7 +295,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isImpostor: 0
+  _name: Player
+  _startPos: {x: 0, y: 0, z: 0}
   Body: {fileID: 1899242960396286566, guid: 5aa233e9925fd344584f312fb0c2fdda, type: 3}
+  _isTargetted: 0
+  _isStopped: 0
+  aisStopped: 0
+  dest: {x: 0, y: 0, z: 0}
+  dist: 0
 --- !u!195 &1899242960396286564
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -331,3 +338,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _visible: 0
+  _isEjected: 0

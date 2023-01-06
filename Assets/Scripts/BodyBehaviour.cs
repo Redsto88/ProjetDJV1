@@ -9,6 +9,8 @@ public class BodyBehaviour : MonoBehaviour
 
     public string _name = "Player";
 
+    [SerializeField] private GameObject _outline;
+
     void OnTriggerStay(Collider other){
         if(other.gameObject.TryGetComponent<PlayerController>(out var c)){
             if(Input.GetKey(KeyCode.Space) && !_isActivated){
@@ -29,6 +31,22 @@ public class BodyBehaviour : MonoBehaviour
                 transform.rotation *= Quaternion.Euler(0, 0, 1f);
                 yield return null;
             }
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.TryGetComponent<PlayerController>(out var player) && !_isActivated)
+        {
+            _outline.SetActive(true);
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.TryGetComponent<PlayerController>(out var player))
+        {
+            _outline.SetActive(false);
         }
     }
 }
