@@ -33,7 +33,7 @@ public class MeetingButtonScript : MonoBehaviour
             button.Unactive();
         }
         Debug.Log("id : " + _buttons[id]._text.text + " is dead");
-        GameManager.Instance.kill(id);
+        GameManager.Instance.kill(id, _buttons[id]._text.text);
     }
 
     public void Appear(){
@@ -43,6 +43,7 @@ public class MeetingButtonScript : MonoBehaviour
             if(character.gameObject.TryGetComponent<CharacterBehaviour>(out var a)){
                 _buttons[i].SetText(a._name);
                 _buttons[i]._id = i;
+                _buttons[i].Active();
             }
             if(character.gameObject.TryGetComponent<BodyBehaviour>(out var b)){
                 _buttons[i].SetText(b._name);
@@ -52,6 +53,7 @@ public class MeetingButtonScript : MonoBehaviour
             if(character.gameObject.TryGetComponent<PlayerController>(out var c)){
                 _buttons[i].SetText("You");
                 _buttons[i]._id = i;
+                _buttons[i].Active();
             }
             i++;
         }

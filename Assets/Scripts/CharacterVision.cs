@@ -53,7 +53,7 @@ public class CharacterVision : MonoBehaviour
         }
         foreach (GameObject character in _notVisibleCharacterList){
             if (character.TryGetComponent<visibilty>(out visibilty v)){
-                v._visible = false || _camera;
+                v._visible = false || _camera || v._isEjected;
             }
 
         }

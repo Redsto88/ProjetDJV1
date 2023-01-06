@@ -37,67 +37,117 @@ public class GameManager : Singleton<GameManager>
 
     public GameObject _camera;
 
+    [SerializeField] private GameObject _Rooms;
+
     [SerializeField] private GameObject _meeting;
 
     [SerializeField] private GameObject _reunionDurgence;
 
     [SerializeField] private Transform _ejectPos;
 
+    [SerializeField] private GameObject _ejectText;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(getTasks());
         _startingPosition = transform.position;
-        for (int i = 0; i < _startingNumberOfCrewmates; i++)
-        {
-            Vector3 startc = _startingPosition + new Vector3(_spawnDistance*Mathf.Cos(2*Mathf.PI/(_startingNumberOfCharacters+1)*(i)),0,_spawnDistance*Mathf.Sin(2*Mathf.PI/(_startingNumberOfCharacters+1)*(i)));
+        int crewmateToSpawn = _startingNumberOfCrewmates;
+        int impostorToSpawn = _startingNumberOfCharacters - _startingNumberOfCrewmates;
+        int playerToSpawnN = 1;
+
+        for(int i = 0; i< _numberOfCharacters+1; i++){
+            bool good = false;
+            while(!good){
+                int random = Random.Range(0,12);
+                if (random<10){
+                    if (crewmateToSpawn > 0){
+                        crewmateToSpawn -= 1;
+                        SpawnCrewmate(i,playerToSpawnN==1 ? i : i-1);
+                        good = true;
+                    }
+                }
+                else if (random==10){
+                    if (playerToSpawnN > 0){
+                        playerToSpawnN -= 1;
+                        SpawnPlayer(i);
+                        good = true;
+                    }
+                }
+                if (random==2){
+                    if (impostorToSpawn > 0){
+                        impostorToSpawn -= 1;
+                        SpawnImpostor(i,playerToSpawnN==1 ? i : i-1);
+                        good = true;
+                    }
+                }
+            }
+
+        }
+
+
+        StartCoroutine(getTasks());
+    }
+
+    private void SpawnCrewmate(int i,int mat){
+        Vector3 start = _startingPosition + new Vector3(_spawnDistance*Mathf.Cos(2*Mathf.PI/(_startingNumberOfCharacters+1)*(i)),0,_spawnDistance*Mathf.Sin(2*Mathf.PI/(_startingNumberOfCharacters+1)*(i)));
             GameObject crewmate = Instantiate(
                 _crewmatePrefab,
-                 startc,
+                 start,
                   Quaternion.identity
             );
-            crewmate.GetComponentInChildren<Renderer>().material = _characterMaterials[i];
+            crewmate.GetComponentInChildren<Renderer>().material = _characterMaterials[mat];
             crewmate.name = "Crewmate " + i;
             crewmate.transform.parent = _player.transform.parent;
             CharacterBehaviour cc = crewmate.GetComponent<CharacterBehaviour>();
-            cc._name = _characterMaterials[i].name;
-            cc._startPos = startc;
+            cc._name = _characterMaterials[mat].name;
+            cc._startPos = start;
             _crewmates.Add(crewmate);
             _characterList.Add(crewmate);
-        }
+    }
 
-        for (int i = 0 ; i < _startingNumberOfCharacters - _startingNumberOfCrewmates; i++)
-        {
-            Vector3 starti = _startingPosition + new Vector3(_spawnDistance*Mathf.Cos(2*Mathf.PI/(_startingNumberOfCharacters+1)*(i+_startingNumberOfCrewmates)),0,_spawnDistance*Mathf.Sin(2*Mathf.PI/(_startingNumberOfCharacters+1)*(i+_startingNumberOfCrewmates)));
+    private void SpawnImpostor(int i,int mat){
+        Vector3 start = _startingPosition + new Vector3(_spawnDistance*Mathf.Cos(2*Mathf.PI/(_startingNumberOfCharacters+1)*i),0,_spawnDistance*Mathf.Sin(2*Mathf.PI/(_startingNumberOfCharacters+1)*i));
             GameObject imposter = 
             Instantiate(
                 _imposterPrefab,
-                 starti,
+                 start,
                   Quaternion.identity
             );
             imposter.GetComponent<CharacterBehaviour>()._isImpostor = true;
-            imposter.GetComponentInChildren<Renderer>().material = _characterMaterials[i+_startingNumberOfCrewmates];
+            imposter.GetComponentInChildren<Renderer>().material = _characterMaterials[mat];
             imposter.name = "Imposter " + i; 
             imposter.transform.parent = _player.transform.parent;
             imposter.GetComponent<ImpostorBehaviour>()._player = _player;
             CharacterBehaviour cc = imposter.GetComponent<CharacterBehaviour>();
-            cc._name = _characterMaterials[i + _startingNumberOfCrewmates].name;
-            cc._startPos = starti;
+            cc._name = _characterMaterials[mat].name;
+            cc._startPos = start;
             _imposters.Add(imposter);
             _characterList.Add(imposter);
-        }
+    }
 
-        Vector3 start = _startingPosition + new Vector3(_spawnDistance*Mathf.Cos(2*Mathf.PI),0,_spawnDistance*Mathf.Sin(2*Mathf.PI));
+    private void SpawnPlayer(int i){
+         Vector3 start = _startingPosition + new Vector3(_spawnDistance*Mathf.Cos(2*Mathf.PI/(_startingNumberOfCharacters+1)*i),0,_spawnDistance*Mathf.Sin(2*Mathf.PI/(_startingNumberOfCharacters+1)*i));
         _characterList.Add(_player);
         _player.GetComponent<PlayerController>()._startPos = start;
         _player.transform.position = start;
     }
-
-    private void SpawnCrewmate(){
-
+    private void resetRoomsPresence(){
+        foreach (Transform child in _Rooms.transform)
+        {
+            List<GameObject> chars = new List<GameObject>(child.GetComponent<RoomTrigger>()._characters);
+            foreach (GameObject character in chars)
+            {
+                if (character==null){
+                    child.gameObject.GetComponent<RoomTrigger>()._characters.Remove(character);
+                }
+                else if (character.TryGetComponent<BodyBehaviour>(out BodyBehaviour body))
+                {
+                    child.gameObject.GetComponent<RoomTrigger>()._characters.Remove(character);
+                }
+            }
+        }
     }
-
 
 
     // Update is called once per frame
@@ -139,30 +189,50 @@ public class GameManager : Singleton<GameManager>
     
 
 
-    public void kill(int i){
+    public void kill(int i,string name){
         GameObject character = _characterList[i];
         GameObject body = null;
+        int who = -1;
         bool lost = false;
         if (character.TryGetComponent<CrewmateBehaviour>(out CrewmateBehaviour crewmate))
         {
             body = crewmate.Kill();
+            who = 0;
         }
         else if (character.TryGetComponent<ImpostorBehaviour>(out ImpostorBehaviour imposter))
         {
             body = imposter.Kill();
+            who = 1;
         }
         else
         {
             body = _player.GetComponent<PlayerController>().Kill();
+            who = 2;
             Debug.Log("Player killed");
             lost = true;
         }
-        StartCoroutine(Eject(body));
+        StartCoroutine(Eject(body,who,name));
     }
 
 
-    IEnumerator Eject(GameObject body)
+    IEnumerator Eject(GameObject body,int who, string name)
     {
+        if(body.TryGetComponent<visibilty>(out visibilty v)){
+            v._isEjected = true;
+        }
+        _ejectText.SetActive(true);
+        if (who == 0)
+        {
+            _ejectText.GetComponent<WasImpostor>()._textToPrint = name + " n'etait pas imposteur";
+        }
+        else if (who == 1)
+        {
+            _ejectText.GetComponent<WasImpostor>()._textToPrint = name + " etait imposteur";
+        }
+        else
+        {
+            _ejectText.GetComponent<WasImpostor>()._textToPrint = " Vous vous etes tue";
+        }
         _meeting.SetActive(false);
         if(body!=null){
             body.GetComponent<blood>()._blood.SetActive(false);
@@ -171,7 +241,8 @@ public class GameManager : Singleton<GameManager>
         }
         _camera.GetComponent<CameraMovement>()._isPlayer = false;
         ResetAllPos(true);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(7f);
+        _ejectText.SetActive(false);
         _meeting_stop = false;
         toremove = false;
         _camera.GetComponent<CameraMovement>()._isPlayer = true;
@@ -180,6 +251,8 @@ public class GameManager : Singleton<GameManager>
             imposterBehaviour._coolDown = imposterBehaviour._coolDowntime;
         }
         _player.GetComponent<PlayerController>().canmove = true;
+        resetRoomsPresence();
+
         
         
     }

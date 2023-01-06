@@ -7,6 +7,8 @@ public class visibilty : MonoBehaviour
     public bool _visible = true;
 
     private bool _lastVisible = true;
+
+    public bool _isEjected = false;
     
     private Renderer[] rends;
 

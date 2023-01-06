@@ -55,6 +55,14 @@ public class ButtonScript : MonoBehaviour
         _button.SetActive(false);
     }
 
+    public void Active(){
+        _button.SetActive(true);
+        valide.SetActive(false);
+        _Yesbutton.SetActive(false);
+        _Nobutton.SetActive(false);
+
+    }
+
     public void SetText(string text){
         _text.text = text;
     }

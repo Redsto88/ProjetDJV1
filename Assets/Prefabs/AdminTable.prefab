@@ -10188,7 +10188,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8012733069889860767
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10317,8 +10317,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.3338234, y: 1.6527058, z: 25.44984}
-  m_Center: {x: 0.028873328, y: -0.007096195, z: -12.224918}
+  m_Size: {x: 1.3338234, y: 0.79832655, z: 25.44984}
+  m_Center: {x: 0.028873326, y: -0.43428585, z: -12.224919}
 --- !u!114 &2674998535174864148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10333,7 +10333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 0
   state: 0
-  table: {fileID: 0}
+  table: {fileID: 8012733069889860766}
   rooms: {fileID: 0}
 --- !u!1 &8012733071256662850
 GameObject:

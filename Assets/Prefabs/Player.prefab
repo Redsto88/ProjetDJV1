@@ -506,9 +506,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5476bee05f56f641b55b4c439572f91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canmove: 1
   _speed: 25
   _rotationSpeed: 1000
   _body: {fileID: 1899242960396286566, guid: 5aa233e9925fd344584f312fb0c2fdda, type: 3}
+  _startPos: {x: 0, y: 0, z: 0}
 --- !u!136 &7104408343724842915
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -548,7 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af7c5f4a94cdf9d40ad936ec9fb8a020, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _visionDistance: 25
-  _camera: 1
+  _visionDistance: 6
+  _camera: 0
   rayHeight: 1.8
   DebugMode: 0

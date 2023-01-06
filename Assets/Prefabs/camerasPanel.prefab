@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 964117554}
   - component: {fileID: 964117555}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Directional Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 8012733069889860762}
   - component: {fileID: 8012733069889860765}
   - component: {fileID: 8012733069889860764}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,13 +204,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8012733070163724143}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cameras
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8012733070163724143
 Transform:
   m_ObjectHideFlags: 0
@@ -242,7 +242,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8012733070417524377}
   - component: {fileID: 8012733070417524359}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -317,7 +317,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8012733070553283748}
   - component: {fileID: 8012733070553283746}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Camera (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -395,7 +395,7 @@ GameObject:
   - component: {fileID: 8012733070895398616}
   - component: {fileID: 8012733070895398619}
   - component: {fileID: 8012733070895398618}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: camerasPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -507,7 +507,7 @@ GameObject:
   - component: {fileID: 8012733071256662851}
   - component: {fileID: 8012733071256662849}
   - component: {fileID: 8012733071256662848}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -582,7 +582,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8012733071268339096}
   - component: {fileID: 8012733071268339078}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Camera (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -657,7 +657,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8012733071651704152}
   - component: {fileID: 8012733071651704134}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Camera (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

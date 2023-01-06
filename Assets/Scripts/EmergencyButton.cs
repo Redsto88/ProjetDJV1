@@ -38,12 +38,14 @@ public class EmergencyButton : MonoBehaviour
         }
     }
 
-    void OnTriggerStay(){
-
-        if(Input.GetKey(KeyCode.Space) && !_isActivated){
-            _buttonOutline.SetActive(false);
-            _isActivated = true;
-            GameManager.Instance.meeting();
+    void OnTriggerStay(Collider other){
+        if (other.gameObject.TryGetComponent<PlayerController>(out var player))
+        {
+            if(Input.GetKey(KeyCode.Space) && !_isActivated){
+                _buttonOutline.SetActive(false);
+                _isActivated = true;
+                GameManager.Instance.meeting();
+            }
         }
     }
 
