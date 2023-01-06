@@ -2465,6 +2465,7 @@ MonoBehaviour:
   _startingPosition: {x: 0, y: 0, z: 0}
   _spawnDistance: 5
   _camera: {fileID: 2065259645}
+  _Rooms: {fileID: 1298227854}
   _meeting: {fileID: 2017138271}
   _reunionDurgence: {fileID: 1500952250}
   _ejectPos: {fileID: 1864200432}
@@ -7645,6 +7646,10 @@ PrefabInstance:
     - target: {fileID: 2007699420841844822, guid: 139d1412ef1a6054ba21725ee12200ff, type: 3}
       propertyPath: m_Name
       value: Meeting
+      objectReference: {fileID: 0}
+    - target: {fileID: 2007699420841844822, guid: 139d1412ef1a6054ba21725ee12200ff, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 139d1412ef1a6054ba21725ee12200ff, type: 3}

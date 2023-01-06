@@ -48,40 +48,38 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject _ejectText;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         _startingPosition = transform.position;
         int crewmateToSpawn = _startingNumberOfCrewmates;
         int impostorToSpawn = _startingNumberOfCharacters - _startingNumberOfCrewmates;
         int playerToSpawnN = 1;
-
-        for(int i = 0; i< _numberOfCharacters+1; i++){
+        int random;
+        for(int i = 0; i< _startingNumberOfCharacters+1; i++){
             bool good = false;
             while(!good){
-                int random = Random.Range(0,12);
-                if (random<10){
+                random = Random.Range(0,12);
+                if (random<9){
                     if (crewmateToSpawn > 0){
                         crewmateToSpawn -= 1;
                         SpawnCrewmate(i,playerToSpawnN==1 ? i : i-1);
                         good = true;
                     }
                 }
-                else if (random==10){
+                else if (random==9){
                     if (playerToSpawnN > 0){
                         playerToSpawnN -= 1;
                         SpawnPlayer(i);
                         good = true;
                     }
                 }
-                if (random==2){
+                else{
                     if (impostorToSpawn > 0){
                         impostorToSpawn -= 1;
                         SpawnImpostor(i,playerToSpawnN==1 ? i : i-1);
                         good = true;
                     }
                 }
-            }
 
         }
 
@@ -165,11 +163,11 @@ public class GameManager : Singleton<GameManager>
 
     IEnumerator getTasks()
     {
-        yield return new WaitForEndOfFrame();
         task[] tasks = GetComponentsInChildren<task>();
         foreach (task task in tasks)
         {
             _tasksPosition.Add(task._position);
+            yield return null;
         }
     }
 
