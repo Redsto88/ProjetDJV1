@@ -1790,7 +1790,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 485106593}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1468843877}
+        m_TargetAssemblyTypeName: WinLoseScreen, Assembly-CSharp
+        m_MethodName: RestartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &485106593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2640,7 +2652,6 @@ MonoBehaviour:
   _numberOfRooms: 10
   _startingNumberOfCharacters: 9
   _meeting_stop: 0
-  toremove: 0
   _numberOfCharacters: 9
   _startingNumberOfCrewmates: 7
   _numberOfCrewmates: 7
@@ -2669,6 +2680,7 @@ MonoBehaviour:
   _ejectPos: {fileID: 1864200432}
   _ejectText: {fileID: 2127628826}
   _win: 0
+  _winLoseScreen: {fileID: 1468843875}
 --- !u!114 &889126968 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1895975155882849027, guid: 8f93c57e44f97374dbe1cd74ffe8bb02, type: 3}
@@ -3946,7 +3958,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1292240775
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5982,7 +5994,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1468843876
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7209,7 +7221,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1954334513
 RectTransform:
   m_ObjectHideFlags: 0
