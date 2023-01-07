@@ -24,12 +24,24 @@ public class WinLoseScreen : MonoBehaviour
             Restart.color = new Color(1,1,1,0);
             Win.color = new Color(1,1,1,0);
             Lose.color = new Color(1,1,1,0);
+            if(GameManager.Instance._win)
+            {
+                AudioManager.Instance.Play("win", 1f);
+            }
+            else
+            {
+                AudioManager.Instance.Play("lose", 1f);
+            }
             while (back.color.a < 1)
             {
                 if(GameManager.Instance._win)
+                {
                     Win.color = new Color(1,1,1,Win.color.a + 0.03f);
+                }
                 else
+                {
                     Lose.color = new Color(1,1,1,Lose.color.a + 0.03f);
+                }
                 back.color = new Color(0,0,0,back.color.a + 0.03f);
                 Quit.color = new Color(1,1,1,Quit.color.a + 0.03f);
                 Restart.color = new Color(1,1,1,Restart.color.a + 0.03f);

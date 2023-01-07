@@ -12,10 +12,8 @@ public class CharacterBehaviour : MonoBehaviour
 
     public void Kill(){
         if(_isImpostor){
-            Debug.Log("Impostor killed");
         }
         else{
-            Debug.Log("Innocent killed");
         }
     }
 

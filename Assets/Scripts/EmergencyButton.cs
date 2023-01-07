@@ -44,7 +44,7 @@ public class EmergencyButton : MonoBehaviour
             if(Input.GetKey(KeyCode.Space) && !_isActivated){
                 _buttonOutline.SetActive(false);
                 _isActivated = true;
-                GameManager.Instance.meeting();
+                GameManager.Instance.meeting(true);
             }
         }
     }

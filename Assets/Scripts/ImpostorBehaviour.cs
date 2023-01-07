@@ -55,6 +55,7 @@ public class ImpostorBehaviour : CharacterBehaviour
         if(Vector3.Distance(transform.position,_player.transform.position)<10 && _target != null){
             _target = null;
             _agent.ResetPath();
+            _target.GetComponent<CrewmateBehaviour>()._isTargetted = false;
         }
     }
 
@@ -118,7 +119,6 @@ public class ImpostorBehaviour : CharacterBehaviour
     }
 
     new public GameObject Kill(){
-        Debug.Log("Killed");
         GameObject bodySpawn = Instantiate(_body, transform.position, Quaternion.Euler(-90,0,0));
         bodySpawn.GetComponentInChildren<Renderer>().material=GetComponentInChildren<Renderer>().material;
         bodySpawn.GetComponent<BodyBehaviour>()._name = _name;

@@ -81,7 +81,6 @@ public class CrewmateBehaviour : CharacterBehaviour
     }
 
     new public GameObject Kill(){
-        Debug.Log("Killed");
         GameObject bodySpawn = Instantiate(Body, transform.position, Quaternion.Euler(-90,0,0));
         bodySpawn.GetComponentInChildren<Renderer>().material=GetComponentInChildren<Renderer>().material;
         bodySpawn.GetComponent<BodyBehaviour>()._name = _name;

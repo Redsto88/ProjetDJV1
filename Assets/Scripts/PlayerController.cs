@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public GameObject _body;
 
     public Vector3 _startPos;
+    private bool soundCoroutineStarted = false;
 
 
     // Start is called before the first frame update
@@ -37,6 +38,17 @@ public class PlayerController : MonoBehaviour
 
         // Move the player
         _controller.Move(move * Time.deltaTime * _speed);
+        if (move == Vector3.zero && soundCoroutineStarted)
+        {
+            soundCoroutineStarted = false;
+            StopCoroutine("StepSound");
+            
+        }
+        else if (move != Vector3.zero && !soundCoroutineStarted)
+        {
+            soundCoroutineStarted = true;
+            StartCoroutine("StepSound");
+        }
         transform.position = new Vector3(transform.position.x, 0, transform.position.z); // Keep the player on the ground
 
         // Rotate the player
@@ -45,28 +57,40 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(move), _rotationSpeed * Time.deltaTime);
         }
 
-        //kill a crewmate
-        if (Input.GetKey(KeyCode.Space))
-        {
-            RaycastHit hit;
+        //kill a crewmate DEBUG ONLY
+        // if (Input.GetKey(KeyCode.Space))
+        // {
+        //     RaycastHit hit;
             
-            if (Physics.Raycast(new Vector3(transform.position.x,1.8f,transform.position.z), transform.forward, out hit, 4f))
-            {
+        //     if (Physics.Raycast(new Vector3(transform.position.x,1.8f,transform.position.z), transform.forward, out hit, 4f))
+        //     {
                 
-                if (hit.collider.gameObject.TryGetComponent<CrewmateBehaviour>(out CrewmateBehaviour crewmate))
-                {
-                    Debug.DrawRay(new Vector3(transform.position.x,1.8f,transform.position.z), transform.forward * 4f, Color.green, 1f);
-                    crewmate.Kill();
-                }
-                else{
-                    Debug.DrawRay(new Vector3(transform.position.x,1.8f,transform.position.z), transform.forward * 4f, Color.blue, 1f);
-                }
-            }
-            else{
-                Debug.DrawRay(new Vector3(transform.position.x,1.8f,transform.position.z), transform.forward * 4f, Color.red, 1f);
-            }
+        //         if (hit.collider.gameObject.TryGetComponent<CrewmateBehaviour>(out CrewmateBehaviour crewmate))
+        //         {
+        //             Debug.DrawRay(new Vector3(transform.position.x,1.8f,transform.position.z), transform.forward * 4f, Color.green, 1f);
+        //             crewmate.Kill();
+        //         }
+        //         else{
+        //             Debug.DrawRay(new Vector3(transform.position.x,1.8f,transform.position.z), transform.forward * 4f, Color.blue, 1f);
+        //         }
+        //     }
+        //     else{
+        //         Debug.DrawRay(new Vector3(transform.position.x,1.8f,transform.position.z), transform.forward * 4f, Color.red, 1f);
+        //     }
         
+        // }
         }
+        if(!canmove){
+            soundCoroutineStarted = false;
+            StopCoroutine("StepSound");
+        }
+    }
+
+    IEnumerator StepSound(){
+        while(soundCoroutineStarted){
+            int rand = Random.Range(1, 5);
+            AudioManager.Instance.Play("step"+rand, 0.5f);
+            yield return new WaitForSeconds(0.3f);
         }
     }
 

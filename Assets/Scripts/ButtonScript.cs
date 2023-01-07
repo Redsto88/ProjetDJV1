@@ -22,6 +22,7 @@ public class ButtonScript : MonoBehaviour
 
     public void Click(){
         ParentButton.GetComponent<MeetingButtonScript>().Reset();
+        AudioManager.Instance.Play("select", 0.7f);
         StartCoroutine(Appear());
     }
 
@@ -48,6 +49,7 @@ public class ButtonScript : MonoBehaviour
 
     public void Yes(){
         valide.SetActive(true);
+        AudioManager.Instance.Play("valide", 0.7f);
         ParentButton.GetComponent<MeetingButtonScript>().Valide(_id);
     }
 

@@ -15,7 +15,7 @@ public class BodyBehaviour : MonoBehaviour
         if(other.gameObject.TryGetComponent<PlayerController>(out var c)){
             if(Input.GetKey(KeyCode.Space) && !_isActivated){
                 _isActivated = true;
-                GameManager.Instance.meeting();
+                GameManager.Instance.meeting(false);
             }
         }
     }

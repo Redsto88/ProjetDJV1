@@ -20,7 +20,7 @@ public class GameManager : Singleton<GameManager>
     public int _numberOfCrewmates = 1; 
     [SerializeField] private GameObject _crewmatePrefab;
     [SerializeField] private GameObject _imposterPrefab;
-    [SerializeField] private GameObject _player;
+    public GameObject _player;
 
     public List<Vector3> _tasksPosition = new List<Vector3>();
     
@@ -43,11 +43,15 @@ public class GameManager : Singleton<GameManager>
 
     [SerializeField] private GameObject _reunionDurgence;
 
+    [SerializeField] private GameObject _cadavreScreen;
+
     [SerializeField] private Transform _ejectPos;
 
     [SerializeField] private GameObject _ejectText;
 
     [SerializeField] private GameObject _emergencyButton;
+
+    [SerializeField] private GameObject _amongus;
 
 
 
@@ -77,7 +81,6 @@ public class GameManager : Singleton<GameManager>
         _win = false;
         _isEnded = false;
         _winLoseScreen.SetActive(false);
-        _meeting_stop = false;
         _characterList.Clear();
         _crewmates.Clear();
         _imposters.Clear();
@@ -89,6 +92,7 @@ public class GameManager : Singleton<GameManager>
 
     public void Start()
     {
+        _amongus.SetActive(true);
         Restart();
         for (int i = 0; i < _characterMaterials.Count; i++){
             Material temp = _characterMaterials[i];
@@ -220,15 +224,24 @@ public class GameManager : Singleton<GameManager>
         yield return new WaitForSeconds(1);
     }
 
-    public void meeting(){
+    public void meeting(bool isEmergency){
         _meeting_stop = true;
-        StartCoroutine(meetingCoroutine());
+        StartCoroutine(meetingCoroutine(isEmergency));
 
-        IEnumerator meetingCoroutine(){
-            _reunionDurgence.SetActive(true);
-            yield return new WaitForSeconds(4);
+        IEnumerator meetingCoroutine(bool isEmergency){
             ResetAllPos(false);
-            _reunionDurgence.SetActive(false);
+            if(isEmergency){
+                AudioManager.Instance.Play("emergency",1f);
+                _reunionDurgence.SetActive(true);
+                yield return new WaitForSeconds(4);
+                _reunionDurgence.SetActive(false);
+            }
+            else{
+                AudioManager.Instance.Play("bodyfound",0.7f);
+                _cadavreScreen.SetActive(true);
+                yield return new WaitForSeconds(4);
+                _cadavreScreen.SetActive(false);
+            }
             _meeting.SetActive(true);
             _meeting.GetComponentInChildren<MeetingButtonScript>().Appear();
         }
@@ -255,7 +268,6 @@ public class GameManager : Singleton<GameManager>
             {
                 body = _player.GetComponent<PlayerController>().Kill();
                 who = 2;
-                Debug.Log("Player killed");
                 StartCoroutine(suicide());
 
                 IEnumerator suicide(){

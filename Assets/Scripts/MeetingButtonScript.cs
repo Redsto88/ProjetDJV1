@@ -17,6 +17,7 @@ public class MeetingButtonScript : MonoBehaviour
 
     public void Skip()
     {
+        AudioManager.Instance.Play("valide", 0.7f);
         Valide(-1);
     }
 
