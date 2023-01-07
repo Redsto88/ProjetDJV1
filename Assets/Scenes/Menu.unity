@@ -181,9 +181,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Vous etes sur un vaisseau avec d'autres passagers ! Mais certains sont
+  m_text: "Vous \xEAtes sur un vaisseau avec d'autres passagers ! Mais certains sont
     des imposteurs dont le seul but est de tuer ! Trouvez les avant que tout le monde
-    meurt. Les Tueurs ne tueront pas en face de vous, alors soyez vigilants.
+    ne meurt. Les Tueurs ne tueront pas en face de vous, alors soyez vigilants."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 30b917ded1e31384bbcc755d42a69267, type: 2}
   m_sharedMaterial: {fileID: 5125311507207878321, guid: 30b917ded1e31384bbcc755d42a69267, type: 2}
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_fontSizeMax: 100
   m_fontStyle: 0
   m_HorizontalAlignment: 8
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -606,9 +606,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Lorsque vous pensez avoir d\xE9masqu\xE9 quelqu'un, rendez vous sur l'emplacement
-    d'une scene de crime ou au centre de la cafeteria pour organiser une r\xE9union
-    g\xE9n\xE9rale afin de pouvoir ejecter quelqu'un du vaisseau. Il y a 2 imposteurs
-    \xE0 trouver et \xE0 \xE9j\xE9cter."
+    d'une sc\xE8ne de crime ou au centre de la caf\xE9t\xE9ria pour organiser une
+    r\xE9union g\xE9n\xE9rale afin de pouvoir \xE9jecter quelqu'un du vaisseau. Il
+    y a 2 imposteurs \xE0 trouver et \xE0 \xE9jecter."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 30b917ded1e31384bbcc755d42a69267, type: 2}
   m_sharedMaterial: {fileID: 5125311507207878321, guid: 30b917ded1e31384bbcc755d42a69267, type: 2}
@@ -642,8 +642,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 100
   m_fontStyle: 0
-  m_HorizontalAlignment: 16
-  m_VerticalAlignment: 512
+  m_HorizontalAlignment: 8
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1566,9 +1566,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Pour vous aider, des cameras sont plac\xE9es sur la carte, pour voir ce
-    qu'elles filment, il suffit de vous rendre dans la salle de s\xE9curit\xE9, \xE0
-    gauche de la caf\xE9t\xE9ria. Utilisez les pour d\xE9masquer les coupables."
+  m_text: "Pour vous aider, des cam\xE9ras sont plac\xE9es sur la carte. Pour voir
+    ce qu'elles filment, il suffit de vous rendre dans la salle de s\xE9curit\xE9,
+    \xE0 gauche de la caf\xE9t\xE9ria. Utilisez les pour d\xE9masquer les coupables."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 30b917ded1e31384bbcc755d42a69267, type: 2}
   m_sharedMaterial: {fileID: 5125311507207878321, guid: 30b917ded1e31384bbcc755d42a69267, type: 2}
@@ -1603,7 +1603,7 @@ MonoBehaviour:
   m_fontSizeMax: 100
   m_fontStyle: 0
   m_HorizontalAlignment: 16
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -3258,9 +3258,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Aussi, vous pouvez utiliser la table d'admin qui vous indique le nombre
-    de personnes dans chaque salle du vaiseau ! Alors bonne chance sur among us lite
-    !
+  m_text: "Vous pouvez \xE9galement utiliser la table d'admin qui vous indique le
+    nombre de personnes pr\xE9sentes dans chaque salle du vaisseau ! Alors bonne
+    chance sur \nAmong us lite !"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 30b917ded1e31384bbcc755d42a69267, type: 2}
   m_sharedMaterial: {fileID: 5125311507207878321, guid: 30b917ded1e31384bbcc755d42a69267, type: 2}
@@ -3287,15 +3287,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.85
+  m_fontSize: 30.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 100
   m_fontStyle: 0
-  m_HorizontalAlignment: 16
-  m_VerticalAlignment: 512
+  m_HorizontalAlignment: 8
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
