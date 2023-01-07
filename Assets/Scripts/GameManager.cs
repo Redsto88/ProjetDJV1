@@ -84,13 +84,12 @@ public class GameManager : Singleton<GameManager>
         _emergencyButton.GetComponent<EmergencyButton>().cooldownTimer = 0f;
         _emergencyButton.GetComponent<EmergencyButton>()._isActivated = false;
         _player.GetComponent<PlayerController>().SetCanMove(true);
-        Start();
     }
 
 
-    void Start()
+    public void Start()
     {
-        //shuffle material list
+        Restart();
         for (int i = 0; i < _characterMaterials.Count; i++){
             Material temp = _characterMaterials[i];
             int randomIndex = Random.Range(i, _characterMaterials.Count);

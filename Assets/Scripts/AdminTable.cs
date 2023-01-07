@@ -13,6 +13,8 @@ public class AdminTable : MonoBehaviour
 
     private RoomTrigger[] roomsT = new RoomTrigger[0];
 
+    [SerializeField] private GameObject outline;
+
     void Update(){
         if (state)
         {
@@ -49,6 +51,22 @@ public class AdminTable : MonoBehaviour
                 table.SetActive(false);
                 player.SetCanMove(true);
             }
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.TryGetComponent<PlayerController>(out var player))
+        {
+            outline.SetActive(true);
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.TryGetComponent<PlayerController>(out var player))
+        {
+            outline.SetActive(false);
         }
     }
 }

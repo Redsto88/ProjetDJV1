@@ -9,6 +9,8 @@ public class Cameras : MonoBehaviour
 
     public GameObject cameras;
 
+    [SerializeField] GameObject outline;
+
 
 
     void OnTriggerStay(Collider other)
@@ -37,6 +39,22 @@ public class Cameras : MonoBehaviour
                 cameras.SetActive(false);
                 player.SetCanMove(true);
             }
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.TryGetComponent<PlayerController>(out var player))
+        {
+            outline.SetActive(true);
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.TryGetComponent<PlayerController>(out var player))
+        {
+            outline.SetActive(false);
         }
     }
 }

@@ -89,10 +89,12 @@ public class CrewmateBehaviour : CharacterBehaviour
         GameManager.Instance._characterList.Remove(gameObject);
         CharacterPosition room = GetComponent<CharacterPosition>();
         if(room != null){
-            RoomTrigger roomObj = room._room.GetComponent<RoomTrigger>();
-            roomObj._crewmates.Remove(gameObject);
-            roomObj._characters.Remove(gameObject);
-            roomObj._characters.Add(bodySpawn);
+            if (room._room != null){
+                RoomTrigger roomObj = room._room.GetComponent<RoomTrigger>();
+                roomObj._crewmates.Remove(gameObject);
+                roomObj._characters.Remove(gameObject);
+                roomObj._characters.Add(bodySpawn);
+            }
         }
         GameManager.Instance._numberOfCrewmates--;
         GameManager.Instance._numberOfCharacters--;

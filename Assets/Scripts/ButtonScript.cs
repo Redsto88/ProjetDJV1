@@ -60,6 +60,7 @@ public class ButtonScript : MonoBehaviour
         valide.SetActive(false);
         _Yesbutton.SetActive(false);
         _Nobutton.SetActive(false);
+        _background.color = new Color(1f,1f,1f,1);
 
     }
 
