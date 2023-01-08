@@ -1,4 +1,4 @@
-# ProjetDJV1
+# ProjetDJV1 : Among Us Lite ! 
 
 ## Principe du jeu
 Vous êtes sur un vaisseau avec d'autres passagers ! Mais certains sont des imposteurs dont le seul but est de tuer ! Trouvez les avant que tout le monde ne meurt. Les Tueurs ne tueront pas en face de vous, alors soyez vigilants. Utilisez ZQSD ou lees flèches du clavier pour bouger et la barre espace pour intéragir !
