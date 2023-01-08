@@ -49,9 +49,13 @@ public class GameManager : Singleton<GameManager>
 
     [SerializeField] private GameObject _ejectText;
 
-    [SerializeField] private GameObject _emergencyButton;
+    public GameObject _emergencyButton;
 
     [SerializeField] private GameObject _amongus;
+
+    [SerializeField] private GameObject _adminTable;
+
+    [SerializeField] private GameObject _cameras;
 
 
 
@@ -89,6 +93,9 @@ public class GameManager : Singleton<GameManager>
         _player.GetComponent<PlayerController>().SetCanMove(true);
         AudioManager.Instance.Stop("win");
         AudioManager.Instance.Stop("lose");
+        _adminTable.GetComponent<AdminTable>().table.SetActive(false);
+        _cameras.GetComponent<Cameras>().cameras.SetActive(false);
+        _emergencyButton.GetComponent<EmergencyButton>()._isActivated = true;
     }
 
 

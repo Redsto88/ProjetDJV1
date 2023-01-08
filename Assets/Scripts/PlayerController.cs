@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
         // Move the player
+        if (move.magnitude > 1)
+            move.Normalize();
         _controller.Move(move * Time.deltaTime * _speed);
         if (move == Vector3.zero && soundCoroutineStarted)
         {

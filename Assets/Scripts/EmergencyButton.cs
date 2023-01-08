@@ -41,7 +41,7 @@ public class EmergencyButton : MonoBehaviour
     void OnTriggerStay(Collider other){
         if (other.gameObject.TryGetComponent<PlayerController>(out var player))
         {
-            if(Input.GetKey(KeyCode.Space) && !_isActivated){
+            if(Input.GetKey(KeyCode.Space) && !_isActivated && !GameManager.Instance._meeting_stop){
                 _buttonOutline.SetActive(false);
                 _isActivated = true;
                 GameManager.Instance.meeting(true);

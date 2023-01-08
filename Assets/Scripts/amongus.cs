@@ -26,6 +26,7 @@ public class amongus : MonoBehaviour
             GameManager.Instance._meeting_stop = false;
             GameManager.Instance._player.GetComponent<PlayerController>().canmove = true;
             transform.parent.gameObject.SetActive(false);
+            GameManager.Instance._emergencyButton.GetComponent<EmergencyButton>()._isActivated = false;
         }
 
     }

@@ -583,6 +583,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1016280078551972238, guid: 5c9f5e90be48c404b823c13e34a9472c, type: 3}
+--- !u!1 &163193704 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8012733070895398620, guid: 8f93c57e44f97374dbe1cd74ffe8bb02, type: 3}
+  m_PrefabInstance: {fileID: 1455070487}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &164508459
 GameObject:
   m_ObjectHideFlags: 0
@@ -1921,6 +1926,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 485106590}
   m_CullTransparentMesh: 1
+--- !u!1 &486177760 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8012733070895398620, guid: fb736ca72141b084cb012b86cd7fb4bd, type: 3}
+  m_PrefabInstance: {fileID: 1117540251}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &500684878 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5387016382661378538, guid: 8f93c57e44f97374dbe1cd74ffe8bb02, type: 3}
@@ -2954,6 +2964,8 @@ MonoBehaviour:
   _ejectText: {fileID: 2127628826}
   _emergencyButton: {fileID: 1554254654}
   _amongus: {fileID: 462150382}
+  _adminTable: {fileID: 163193704}
+  _cameras: {fileID: 486177760}
   _win: 0
   _winLoseScreen: {fileID: 1468843875}
 --- !u!114 &889126968 stripped

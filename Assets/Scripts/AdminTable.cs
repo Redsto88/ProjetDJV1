@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AdminTable : MonoBehaviour
 {
-    public bool active = true;
+    public bool active = false;
     public bool state = false;
 
     public GameObject table;

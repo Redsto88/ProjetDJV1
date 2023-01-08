@@ -62,7 +62,7 @@ public class MeetingButtonScript : MonoBehaviour
                 _buttons[i].SetText("You");
                 _buttons[i]._id = i;
                 _buttons[i].Active();
-                _buttons[i].SetSprite("red");
+                _buttons[i].SetSprite("Red");
             }
             i++;
         }
