@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.UI;
 using TMPro;
 
@@ -17,8 +18,28 @@ public class ButtonScript : MonoBehaviour
 
     public TextMeshProUGUI _text;
 
+    public Image _icon;
+
+
+
     public int _id;
 
+    [System.Serializable]
+    public class ImageSprite
+    {
+        public string name;
+        public Sprite sprite;
+    }
+
+    public ImageSprite[] _sprites;
+
+
+    public void SetSprite(string name){
+        Debug.Log(name);
+        ImageSprite i = Array.Find(_sprites, sprite => sprite.name == name);
+        if (i!=null) _icon.sprite = i.sprite;
+        Debug.Log(i);
+    }
 
     public void Click(){
         ParentButton.GetComponent<MeetingButtonScript>().Reset();

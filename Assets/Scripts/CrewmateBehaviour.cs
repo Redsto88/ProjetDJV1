@@ -22,9 +22,7 @@ public class CrewmateBehaviour : CharacterBehaviour
 
     public bool _isStopped = false;
 
-    public bool aisStopped = false;
-
-    public Vector3 dest;
+    private bool _wasTargetted = false;
 
     public float dist;
 
@@ -37,14 +35,19 @@ public class CrewmateBehaviour : CharacterBehaviour
 
     void Update()
     {
-        dest = _agent.destination;
-        aisStopped = _agent.isStopped;
         if (GameManager.Instance._meeting_stop){
             _agent.SetDestination(_starting_position);
         }
         if (_isTargetted) {
             _agent.isStopped = true;
+            _wasTargetted = true;
         }
+
+        if (_wasTargetted && !_isTargetted) {
+            _agent.isStopped = false;
+            _wasTargetted = false;
+        }
+
     }
     
 
@@ -82,7 +85,8 @@ public class CrewmateBehaviour : CharacterBehaviour
 
     new public GameObject Kill(){
         GameObject bodySpawn = Instantiate(Body, transform.position, Quaternion.Euler(-90,0,0));
-        bodySpawn.GetComponentInChildren<Renderer>().material=GetComponentInChildren<Renderer>().material;
+        bodySpawn.GetComponentsInChildren<Renderer>()[0].material = GetComponentInChildren<Renderer>().material;
+        bodySpawn.GetComponentsInChildren<Renderer>()[1].material = GetComponentInChildren<Renderer>().material;
         bodySpawn.GetComponent<BodyBehaviour>()._name = _name;
         GameManager.Instance._characterList.Add(bodySpawn);
         GameManager.Instance._characterList.Remove(gameObject);

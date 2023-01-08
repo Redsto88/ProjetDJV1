@@ -87,6 +87,8 @@ public class GameManager : Singleton<GameManager>
         _emergencyButton.GetComponent<EmergencyButton>().cooldownTimer = 0f;
         _emergencyButton.GetComponent<EmergencyButton>()._isActivated = false;
         _player.GetComponent<PlayerController>().SetCanMove(true);
+        AudioManager.Instance.Stop("win");
+        AudioManager.Instance.Stop("lose");
     }
 
 
@@ -143,7 +145,8 @@ public class GameManager : Singleton<GameManager>
                  start,
                   Quaternion.identity
             );
-            crewmate.GetComponentInChildren<Renderer>().material = _characterMaterials[mat];
+            crewmate.GetComponentsInChildren<Renderer>()[0].material = _characterMaterials[mat];
+            crewmate.GetComponentsInChildren<Renderer>()[1].material = _characterMaterials[mat];
             crewmate.name = "Crewmate " + i;
             crewmate.transform.parent = _player.transform.parent;
             CharacterBehaviour cc = crewmate.GetComponent<CharacterBehaviour>();
@@ -162,7 +165,8 @@ public class GameManager : Singleton<GameManager>
                   Quaternion.identity
             );
             imposter.GetComponent<CharacterBehaviour>()._isImpostor = true;
-            imposter.GetComponentInChildren<Renderer>().material = _characterMaterials[mat];
+            imposter.GetComponentsInChildren<Renderer>()[0].material = _characterMaterials[mat];
+            imposter.GetComponentsInChildren<Renderer>()[1].material = _characterMaterials[mat];
             imposter.name = "Imposter " + i; 
             imposter.transform.parent = _player.transform.parent;
             imposter.GetComponent<ImpostorBehaviour>()._player = _player;

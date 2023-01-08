@@ -50,16 +50,19 @@ public class MeetingButtonScript : MonoBehaviour
                 _buttons[i].SetText(a._name);
                 _buttons[i]._id = i;
                 _buttons[i].Active();
+                _buttons[i].SetSprite(a._name);
             }
             if(character.gameObject.TryGetComponent<BodyBehaviour>(out var b)){
                 _buttons[i].SetText(b._name);
                 _buttons[i].Dead();
                 _buttons[i]._id = i;
+                _buttons[i].SetSprite(b._name);
             }
             if(character.gameObject.TryGetComponent<PlayerController>(out var c)){
                 _buttons[i].SetText("You");
                 _buttons[i]._id = i;
                 _buttons[i].Active();
+                _buttons[i].SetSprite("red");
             }
             i++;
         }

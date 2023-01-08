@@ -105,7 +105,9 @@ public class PlayerController : MonoBehaviour
 
     public GameObject Kill(){
         GameObject body = Instantiate(_body, transform.position, Quaternion.Euler(-90,0,0));
-        body.GetComponentInChildren<Renderer>().material=GetComponentInChildren<Renderer>().material;
+        body.GetComponentsInChildren<Renderer>()[0].material = GetComponentInChildren<Renderer>().material;
+        body.GetComponentsInChildren<Renderer>()[1].material = GetComponentInChildren<Renderer>().material;
+        GameManager.Instance._characterList.Add(body);
         return body;
     }
 

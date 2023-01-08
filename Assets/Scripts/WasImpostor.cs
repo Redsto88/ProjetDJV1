@@ -29,7 +29,12 @@ public class WasImpostor : MonoBehaviour
             }
             AudioManager.Instance.Stop("writeText");
             _text2.gameObject.SetActive(true);
+            if(GameManager.Instance._imposters.Count >= 2){
             _text2.text = GameManager.Instance._imposters.Count + " imposteurs restants";
+            }
+            else{
+                _text2.text = GameManager.Instance._imposters.Count + " imposteur restant";
+            }
         }
     }
 }
